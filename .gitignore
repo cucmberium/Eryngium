@@ -99,3 +99,7 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+.idea/
+crawler/migrations/0*.py
+settings_local.py
