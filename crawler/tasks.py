@@ -15,7 +15,11 @@ def crawl_user_from_timeline(instance, access_tokens):
 
     response = requests.get(f'https://{instance}/api/v1/timelines/public?local=true&limit=40', headers=headers)
     statuses = response.json()
+
     user_id_to_user_name = {int(status["account"]["id"]): status["account"]["username"] for status in statuses}
+    user_id_to_bio = {int(status["account"]["id"]):
+                      re.sub(r"<[^>]*?>", "", status["account"]["note"]) for status in statuses}
+
     user_ids = list(set([int(status["account"]["id"]) for status in statuses]))
     users = User.objects.filter(user_id__in=user_ids, instance=instance,
                                 updated_at__gte=datetime.datetime.now() - datetime.timedelta(weeks=4))
@@ -36,6 +40,7 @@ def crawl_user_from_timeline(instance, access_tokens):
         user.user_name = user_id_to_user_name[user_id]
         user.following = json.dumps(accts)
         user.toots = json.dumps(statuses)
+        user.bio = json.dumps(user_id_to_bio[user_id])
         user.save()
 
         time.sleep(1)
