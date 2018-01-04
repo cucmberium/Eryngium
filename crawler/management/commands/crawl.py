@@ -12,7 +12,6 @@ class Command(BaseCommand):
         parser.add_argument('name', type=str)
         parser.add_argument('tokens', type=str)
 
-    # コマンドが実行された際に呼ばれるメソッド
     def handle(self, *args, **options):
         instance = options['name']
         access_tokens = options['tokens']

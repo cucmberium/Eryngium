@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crawler',
+    'vector',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+WORDVECTOR_PATH = os.path.join(os.getcwd(), "vector/data/word_vector.bin")
