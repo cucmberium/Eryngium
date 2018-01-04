@@ -104,3 +104,5 @@ ENV/
 crawler/migrations/0*.py
 settings_local.py
 loop.sh
+dict/
+*_vector.bin

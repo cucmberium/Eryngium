@@ -128,5 +128,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MECAB_IPADIC_NEOLOGD_PATH = os.path.join(os.getcwd(),
+                                         "vector/dict/mecab-ipadic-neologd/build",
+                                         "mecab-ipadic-2.7.0-20070801-neologd-20171228")
 
 WORDVECTOR_PATH = os.path.join(os.getcwd(), "vector/data/word_vector.bin")
+USERFOLLWINGVECTOR_PATH = os.path.join(os.getcwd(), "vector/data/user_following_vector.bin")
