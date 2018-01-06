@@ -10,3 +10,10 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+ACCESSTOKEN_SETTING = {
+    "mstdn.jp": "",
+    "pawoo.net": "",
+    "friends.nico": "",
+    "mstdn.maud.io": "",
+}

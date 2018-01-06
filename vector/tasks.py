@@ -17,13 +17,6 @@ word_vector_model = None
 user_following_vector_model = None
 user_bio_vector_model = None
 
-# if word_vector_model is None:
-#     word_vector_model = pickle.load(open(settings.WORDVECTOR_PATH, 'rb'))
-# if user_following_vector_model is None:
-#     user_following_vector_model = pickle.load(open(settings.USERFOLLWINGVECTOR_PATH, 'rb'))
-# if user_bio_vector_model is None:
-#     user_bio_vector_model = pickle.load(open(settings.USERBIOVECTOR_PATH, 'rb'))
-
 
 def get_similar_following_users(user):
     global user_following_vector_model
