@@ -66,7 +66,7 @@ def get_user_information(instance, user_name, force_update=True):
     params = {
         "q": user_name + "@" + instance
     }
-    response = requests.get(f'https://{instance}/api/v1/api/v1/search', params=params, headers=headers)
+    response = requests.get(f'https://{instance}/api/v1/search', params=params, headers=headers)
     accounts = response.json()["accounts"]
     if len(accounts) == 0:
         raise ValueError(f"User {user_name}@{instance} is not found")
@@ -74,12 +74,12 @@ def get_user_information(instance, user_name, force_update=True):
     target_user_id = accounts[0]["id"]
     target_user_bio = accounts[0]["note"]
     # Get user recent following
-    response = requests.get(f'https://{instance}/api/v1/accounts/{user_id}/following?limit=80', headers=headers)
+    response = requests.get(f'https://{instance}/api/v1/accounts/{target_user_id}/following?limit=80', headers=headers)
     accts = [account["acct"] if "@" in account["acct"] else account["acct"] + "@" + instance
              for account in response.json()]
 
     # Get user recent toot
-    response = requests.get(f'https://{instance}/api/v1/accounts/{user_id}/statuses?limit=40', headers=headers)
+    response = requests.get(f'https://{instance}/api/v1/accounts/{target_user_id}/statuses?limit=40', headers=headers)
     statuses = [re.sub(r"<[^>]*?>", "", status["content"]) for status in response.json()]
 
     # Save or update user object

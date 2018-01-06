@@ -18,23 +18,23 @@ user_following_vector_model = None
 user_bio_vector_model = None
 
 
-def get_similar_following_users(user):
+def get_similar_following_users(user, topn=10):
     global user_following_vector_model
     if user_following_vector_model is None:
         user_following_vector_model = pickle.load(open(settings.USERFOLLWINGVECTOR_PATH, 'rb'))
 
     infer_vector = user_following_vector_model.infer_vector(doc_words=json.loads(user.following))
-    return user_following_vector_model.docvecs.most_similar([infer_vector], topn=100)
+    return user_following_vector_model.docvecs.most_similar([infer_vector], topn=topn)
 
 
-def get_similar_bio_users(user):
+def get_similar_bio_users(user, topn=10):
     global user_bio_vector_model
     if user_bio_vector_model is None:
         user_bio_vector_model = pickle.load(open(settings.USERBIOVECTOR_PATH, 'rb'))
 
     vec = calculate_user_bio_vector(user)
     dists = (1 + np.dot(user_bio_vector_model["syn0norm"], vec)) / 2
-    best = gensim.matutils.argsort(dists, topn=100, reverse=True)
+    best = gensim.matutils.argsort(dists, topn=topn, reverse=True)
     return [(user_bio_vector_model["index2word"][idx], float(dists[idx])) for idx in best]
 
 

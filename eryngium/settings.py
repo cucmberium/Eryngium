@@ -127,6 +127,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
+ACCESSTOKEN_SETTING = eryngium.settings_local.ACCESSTOKEN_SETTING
+
 STATIC_URL = '/static/'
 
 MECAB_IPADIC_NEOLOGD_PATH = os.path.join(os.getcwd(),

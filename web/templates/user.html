@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <section id="about">
+      <div class="container">
+        <div class="row">
+          <ul>
+            {% for user in similar_users %}
+                <li><a href="https://{{ user.instance }}/@{{ user.user_name }}">{{ user.user_name }}@{{ user.instance }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </section>
+{% endblock %}

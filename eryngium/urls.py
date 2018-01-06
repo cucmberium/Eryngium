@@ -19,5 +19,6 @@ from web import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^api/$', views.api, name='api'),
     url(r'^users/(?P<acct>([a-zA-Z0-9_]+)@(.+))/$', views.user, name='user'),
 ]
