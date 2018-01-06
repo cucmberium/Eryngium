@@ -50,9 +50,9 @@ def crawl_user_from_timeline(instance):
         time.sleep(1)
 
 
-def get_user_information(instance, user_name):
+def get_user_information(instance, user_name, force_update=True):
     user = User.objects.filter(user_name=user_name, instance=instance).first()
-    if user is not None:
+    if user is not None and not force_update:
         return user
 
     if instance not in settings.ACCESSTOKEN_SETTING:
@@ -66,7 +66,7 @@ def get_user_information(instance, user_name):
     params = {
         "q": user_name + "@" + instance
     }
-    response = requests.get(f'https://{instance}/api/v1//api/v1/search', params=params, headers=headers)
+    response = requests.get(f'https://{instance}/api/v1/api/v1/search', params=params, headers=headers)
     accounts = response.json()["accounts"]
     if len(accounts) == 0:
         raise ValueError(f"User {user_name}@{instance} is not found")

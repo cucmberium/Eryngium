@@ -82,6 +82,7 @@ def calculate_word_vector_batch(file_name):
         "word2index": {word: model.wv.vocab[word].index for word in model.wv.vocab},
         "syn0norm": model.wv.syn0norm
     }
+
     with open(settings.WORDVECTOR_PATH, 'wb') as f:
         pickle.dump(word_vector_model, f)
 
