@@ -106,3 +106,4 @@ settings_local.py
 loop.sh
 dict/
 *_vector.bin
+.DS_store

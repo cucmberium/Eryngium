@@ -2,7 +2,7 @@
 
 from django.core.management.base import BaseCommand
 
-from vector.tasks import calculate_word_vector
+from vector.tasks import calculate_word_vector_batch
 
 
 class Command(BaseCommand):
@@ -13,4 +13,4 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         file_name = options['file']
-        calculate_word_vector(file_name)
+        calculate_word_vector_batch(file_name)

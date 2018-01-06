@@ -134,3 +134,4 @@ MECAB_IPADIC_NEOLOGD_PATH = os.path.join(os.getcwd(),
 
 WORDVECTOR_PATH = os.path.join(os.getcwd(), "vector/data/word_vector.bin")
 USERFOLLWINGVECTOR_PATH = os.path.join(os.getcwd(), "vector/data/user_following_vector.bin")
+USERBIOVECTOR_PATH = os.path.join(os.getcwd(), "vector/data/user_bio_vector.bin")
