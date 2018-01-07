@@ -101,9 +101,9 @@ ENV/
 .mypy_cache/
 
 .idea/
-crawler/migrations/0*.py
-settings_local.py
-loop.sh
-dict/
-*_vector.bin
 .DS_store
+crawler/migrations/0*.py
+vector/dict/mecab*
+settings_local.py
+*_vector.bin
+loop.sh
