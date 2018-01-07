@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 from crawler.tasks import get_user_information
 from vector.tasks import get_similar_following_users

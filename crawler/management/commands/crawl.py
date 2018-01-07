@@ -10,9 +10,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('name', type=str)
-        parser.add_argument('tokens', type=str)
 
     def handle(self, *args, **options):
         instance = options['name']
-        access_tokens = options['tokens']
-        crawl_user_from_timeline(instance, access_tokens)
+        crawl_user_from_timeline(instance)
