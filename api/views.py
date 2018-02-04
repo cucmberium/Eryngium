@@ -43,7 +43,7 @@ def recommendations(request):
         return JsonResponse({'error': str(e)}, status=404)
 
 
-def similar_user(request):
+def similar_users(request):
     if request.method != 'GET':
         return JsonResponse({'error': 'method not allowed'}, status=405)
 
