@@ -56,7 +56,7 @@ def get_user_information(instance, user_name, force_update=True):
         return user
 
     if instance not in settings.ACCESSTOKEN_SETTING:
-        raise ValueError(f"{instance} is not supported")
+        raise ValueError(f"Instance {instance} is not supported")
 
     headers = {
         'User-Agent': 'Eryngium',
@@ -64,10 +64,10 @@ def get_user_information(instance, user_name, force_update=True):
     }
 
     params = {
-        "q": user_name + "@" + instance
+        "q": user_name
     }
     response = requests.get(f'https://{instance}/api/v1/search', params=params, headers=headers)
-    accounts = response.json()["accounts"]
+    accounts = [x for x in response.json()["accounts"] if x["acct"] == user_name]
     if len(accounts) == 0:
         raise ValueError(f"User {user_name}@{instance} is not found")
 

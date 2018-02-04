@@ -18,12 +18,12 @@ user_following_vector_model = None
 user_bio_vector_model = None
 
 
-def get_similar_following_users(user, topn=10):
+def get_similar_following_users(user, topn=20):
     global user_following_vector_model
     if user_following_vector_model is None:
         user_following_vector_model = pickle.load(open(settings.USERFOLLWINGVECTOR_PATH, 'rb'))
 
-    infer_vector = user_following_vector_model.infer_vector(doc_words=json.loads(user.following))
+    infer_vector = user_following_vector_model.infer_vector(doc_words=json.loads(user.following), steps=20)
     return user_following_vector_model.docvecs.most_similar([infer_vector], topn=topn)
 
 
@@ -99,7 +99,7 @@ def calculate_user_following_vector_batch():
         labeled_followings.append(ls)
 
     user_following_vector_model = gensim.models.Doc2Vec(labeled_followings, size=300, window=5, dm=1,
-                                                        min_count=1, workers=4, iter=1000, negative=5, sample=1e-5)
+                                                        min_count=1, workers=4, iter=2000, negative=5, sample=1e-5)
     with open(settings.USERFOLLWINGVECTOR_PATH, 'wb') as f:
         pickle.dump(user_following_vector_model, f)
 

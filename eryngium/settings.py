@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crawler',
     'vector',
-    "web"
+    "web",
+    "api"
 ]
 
 MIDDLEWARE = [
