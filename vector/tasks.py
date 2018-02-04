@@ -23,8 +23,11 @@ def get_similar_following_users(user, topn=20):
     if user_following_vector_model is None:
         user_following_vector_model = pickle.load(open(settings.USERFOLLWINGVECTOR_PATH, 'rb'))
 
-    infer_vector = user_following_vector_model.infer_vector(doc_words=json.loads(user.following), steps=1000)
-    return user_following_vector_model.docvecs.most_similar([infer_vector], topn=topn)
+    if user.user_name + "@" + user.instance in user_following_vector_model:
+        vector = user_following_vector_model[user.user_name + "@" + user.instance]
+    else:
+        vector = user_following_vector_model.infer_vector(doc_words=json.loads(user.following), steps=2000)
+    return user_following_vector_model.docvecs.most_similar([vector], topn=topn)
 
 
 def get_similar_bio_users(user, topn=10):
