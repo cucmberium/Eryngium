@@ -96,7 +96,7 @@ def calculate_user_following_vector_batch():
     labeled_followings = []
     for user in users:
         following = json.loads(user.following)
-        if len(following) <= 1:
+        if len(following) <= 5:
             continue
         ls = gensim.models.doc2vec.LabeledSentence(words=following, tags=[user.user_name + "@" + user.instance])
         labeled_followings.append(ls)
