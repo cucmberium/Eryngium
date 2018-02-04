@@ -17,3 +17,5 @@ ACCESSTOKEN_SETTING = {
     "friends.nico": "",
     "mstdn.maud.io": "",
 }
+
+ALLOWED_HOST = []

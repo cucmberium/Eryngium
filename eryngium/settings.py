@@ -27,7 +27,7 @@ SECRET_KEY = eryngium.settings_local.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = eryngium.settings_local.ALLOWED_HOST
 
 
 # Application definition
