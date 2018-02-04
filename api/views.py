@@ -21,9 +21,9 @@ def recommendations(request):
         target_user = get_user_information(instance, user_name, False)
         target_user_following = set(json.loads(target_user.following))
 
-        similar_users = [x for x in get_similar_following_users(target_user) if x[0] != target_user_acct]
+        sim_users = [x for x in get_similar_following_users(target_user) if x[0] != target_user_acct]
         recommend_user_dict = defaultdict(float)
-        for acct, sim in similar_users:
+        for acct, sim in sim_users:
             user_name, instance = acct.split("@")
             u = get_user_information(instance, user_name, False)
             for recommend_acct in json.loads(u.following):
@@ -55,10 +55,10 @@ def similar_users(request):
         user_name, instance = target_user_acct.split("@")
         target_user = get_user_information(instance, user_name, False)
 
-        similar_users = [x for x in get_similar_following_users(target_user) if x[0] != target_user_acct]
+        sim_users = [x for x in get_similar_following_users(target_user) if x[0] != target_user_acct]
         return JsonResponse(
             [{"acct": x[0], "similarity": x[1]}
-             for x in similar_users],
+             for x in sim_users],
             safe=False
         )
 
