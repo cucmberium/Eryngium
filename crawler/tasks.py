@@ -58,9 +58,8 @@ def crawl_user_from_timeline(instance):
         time.sleep(1)
 
 
-def get_user_information(instance, user_name, force_update=True):
-    user = User.objects.filter(user_name=user_name, instance=instance,
-                               updated_at__gte=datetime.datetime.now() - datetime.timedelta(weeks=1)).first()
+def get_user_information(instance, user_name, force_update=False):
+    user = User.objects.filter(user_name=user_name, instance=instance).first()
     if user is not None and not force_update:
         return user
 
