@@ -26,12 +26,20 @@ def crawl_user_from_timeline(instance):
 
     user_ids = list(set([int(status["account"]["id"]) for status in statuses]))
     users = User.objects.filter(user_id__in=user_ids, instance=instance,
-                                updated_at__gte=datetime.datetime.now() - datetime.timedelta(weeks=4))
+                                updated_at__gte=datetime.datetime.now() - datetime.timedelta(weeks=1))
     for user_id in set(user_ids) - set([user.user_id for user in users]):
-        # Get user recent following
-        response = requests.get(f'https://{instance}/api/v1/accounts/{user_id}/following?limit=80', headers=headers)
-        accts = [account["acct"] if "@" in account["acct"] else account["acct"] + "@" + instance
-                 for account in response.json()]
+        # Get user following
+        accts = []
+        url = f'https://{instance}/api/v1/accounts/{user_id}/following?limit=80'
+        while True:
+            response = requests.get(url, headers=headers)
+            accts.extend([account["acct"] if "@" in account["acct"] else account["acct"] + "@" + instance
+                          for account in response.json()])
+            if 'next' not in response.links:
+                break
+
+            url = response.links['next']['url']
+            time.sleep(1)
 
         # Get user recent toot
         response = requests.get(f'https://{instance}/api/v1/accounts/{user_id}/statuses?limit=40', headers=headers)
@@ -51,7 +59,8 @@ def crawl_user_from_timeline(instance):
 
 
 def get_user_information(instance, user_name, force_update=True):
-    user = User.objects.filter(user_name=user_name, instance=instance).first()
+    user = User.objects.filter(user_name=user_name, instance=instance,
+                               updated_at__gte=datetime.datetime.now() - datetime.timedelta(weeks=1)).first()
     if user is not None and not force_update:
         return user
 
@@ -74,9 +83,17 @@ def get_user_information(instance, user_name, force_update=True):
     target_user_id = accounts[0]["id"]
     target_user_bio = accounts[0]["note"]
     # Get user recent following
-    response = requests.get(f'https://{instance}/api/v1/accounts/{target_user_id}/following?limit=80', headers=headers)
-    accts = [account["acct"] if "@" in account["acct"] else account["acct"] + "@" + instance
-             for account in response.json()]
+    accts = []
+    url = f'https://{instance}/api/v1/accounts/{target_user_id}/following?limit=80'
+    while True:
+        response = requests.get(url, headers=headers)
+        accts.extend([account["acct"] if "@" in account["acct"] else account["acct"] + "@" + instance
+                      for account in response.json()])
+        if 'next' not in response.links:
+            break
+
+        url = response.links['next']['url']
+        time.sleep(1)
 
     # Get user recent toot
     response = requests.get(f'https://{instance}/api/v1/accounts/{target_user_id}/statuses?limit=40', headers=headers)
