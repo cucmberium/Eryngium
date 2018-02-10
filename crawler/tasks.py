@@ -5,7 +5,7 @@ import re
 import json
 
 from django.conf import settings
-from crawler.models import User
+from crawler.models import User, UserInfo
 
 
 def crawl_user_from_timeline(instance):
@@ -20,6 +20,9 @@ def crawl_user_from_timeline(instance):
     response = requests.get(f'https://{instance}/api/v1/timelines/public?local=true&limit=40', headers=headers)
     statuses = response.json()
 
+    for status in statuses:
+        UserInfo.create_or_update(status["account"], instance)
+
     user_id_to_user_name = {int(status["account"]["id"]): status["account"]["username"] for status in statuses}
     user_id_to_bio = {int(status["account"]["id"]):
                       re.sub(r"<[^>]*?>", "", status["account"]["note"]) for status in statuses}
@@ -33,6 +36,12 @@ def crawl_user_from_timeline(instance):
         url = f'https://{instance}/api/v1/accounts/{user_id}/following?limit=80'
         while True:
             response = requests.get(url, headers=headers)
+            for account in response.json():
+                UserInfo.create_or_update(
+                    account,
+                    account["acct"].split("@")[1] if "@" in account["acct"] else instance
+                )
+
             accts.extend([account["acct"] if "@" in account["acct"] else account["acct"] + "@" + instance
                           for account in response.json()])
             if 'next' not in response.links:
@@ -79,6 +88,11 @@ def get_user_information(instance, user_name, force_update=False):
     if len(accounts) == 0:
         raise ValueError(f"User {user_name}@{instance} is not found")
 
+    UserInfo.create_or_update(
+        accounts[0],
+        instance
+    )
+
     target_user_id = accounts[0]["id"]
     target_user_bio = accounts[0]["note"]
     # Get user recent following
@@ -86,6 +100,12 @@ def get_user_information(instance, user_name, force_update=False):
     url = f'https://{instance}/api/v1/accounts/{target_user_id}/following?limit=80'
     while True:
         response = requests.get(url, headers=headers)
+        for account in response.json():
+            UserInfo.create_or_update(
+                account,
+                account["acct"].split("@")[1] if "@" in account["acct"] else instance
+            )
+
         accts.extend([account["acct"] if "@" in account["acct"] else account["acct"] + "@" + instance
                       for account in response.json()])
         if 'next' not in response.links:
