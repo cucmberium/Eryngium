@@ -52,7 +52,7 @@ class UserInfo(models.Model):
         user_info.followers_count = account["followers_count"]
         user_info.following_count = account["following_count"]
         user_info.statuses_count = account["statuses_count"]
-        user_info.note = json.loads(account["note"])
+        user_info.note = json.dumps(account["note"])
         user_info.url = account["url"]
         user_info.avatar = account["avatar"]
         user_info.avatar_static = account["avatar_static"]
