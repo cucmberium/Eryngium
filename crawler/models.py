@@ -47,7 +47,7 @@ class UserInfo(models.Model):
         user_info, created = UserInfo.objects.get_or_create(instance=instance, user_name=account["username"])
         user_info.instance = instance
         user_info.user_name = account["username"]
-        user_info.display_name = account["display_name"]
+        user_info.display_name = json.dumps(account["display_name"])
         user_info.locked = account["locked"]
         user_info.followers_count = account["followers_count"]
         user_info.following_count = account["following_count"]
