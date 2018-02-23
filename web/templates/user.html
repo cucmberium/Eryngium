@@ -16,7 +16,22 @@
             <tbody>
               {% for user in recommend_users %}
               <tr>
-                <td><a href="https://{{ user.instance }}/@{{ user.user_name }}">{{ user.user_name }}@{{ user.instance }}</a></td>
+                <td>
+                  <div class="item__header clearfix">
+                    <span class="item__user-icon">
+                      <img src="{{ user.avatar }}" height="48" width="48" alt="{{ user.acct }}" class="item__user-icon-img" />
+                    </span>
+                    <span class="item__user-name">
+                      <strong>{{ user.display_name }}</strong> @{{ user.acct }}
+                    </span>
+                    <span class="item__bio">
+                      {% autoescape off %}{{ user.bio }}{% endautoescape %}
+                    </span>
+                    <span class="item__url">
+                      <a href="{{ user.url }}">{{ user.url }}</a>
+                    </span>
+                  </div>
+                </td>
                 <td>{{ user.similarity|floatformat:-4 }}</td>
               </tr>
               {% endfor %}
@@ -38,7 +53,22 @@
             <tbody>
               {% for user in similar_users %}
               <tr>
-                <td><a href="https://{{ user.instance }}/@{{ user.user_name }}">{{ user.user_name }}@{{ user.instance }}</a></td>
+                <td>
+                  <div class="item__header clearfix">
+                    <span class="item__user-icon">
+                      <img src="{{ user.avatar }}" height="48" width="48" alt="{{ user.acct }}" class="item__user-icon-img" />
+                    </span>
+                    <span class="item__user-name">
+                      <strong>{{ user.display_name }}</strong> @{{ user.acct }}
+                    </span>
+                    <span class="item__bio">
+                      {% autoescape off %}{{ user.bio }}{% endautoescape %}
+                    </span>
+                    <span class="item__url">
+                      <a href="{{ user.url }}">{{ user.url }}</a>
+                    </span>
+                  </div>
+                </td>
                 <td>{{ user.similarity|floatformat:-4 }}</td>
               </tr>
               {% endfor %}
