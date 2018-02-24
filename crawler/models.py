@@ -24,7 +24,7 @@ class UserInfo(models.Model):
     id = models.AutoField(db_column='id', primary_key=True)
     instance = models.CharField(db_column='instance', db_index=True, max_length=120, blank=False, null=False)
     user_name = models.CharField(db_column='user_name', db_index=True, max_length=120, blank=False, null=False)
-    display_name = models.CharField(db_column='display_name', max_length=120, blank=False, null=False)
+    display_name = models.TextField(db_column='display_name', null=False)
     locked = models.BooleanField(db_column='locked', default=False)
     followers_count = models.IntegerField(db_column='followers_count', default=0)
     following_count = models.IntegerField(db_column='following_count', default=0)
