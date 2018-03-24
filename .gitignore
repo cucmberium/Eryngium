@@ -99,3 +99,11 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+.idea/
+.DS_store
+crawler/migrations/0*.py
+vector/dict/mecab*
+settings_secret.py
+*_vector.bin
+loop.sh

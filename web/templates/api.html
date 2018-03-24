@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+    <section id="about">
+      <div class="container">
+        <h1>
+          API
+        </h1>
+        <ul>
+          <li>
+            <p>/api/users/recommendations.json</p>
+            <ul>
+              <li>parameter
+                <ul>
+                  <li>acct - user&#39;s accts (ex: cucmberium@mstdn.maud.io)</li>
+                </ul>
+              </li>
+              <li>returns
+                <ul>
+                  <li>Calculates and returns suggested users.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <p>/api/users/similar_users.json</p>
+            <ul>
+              <li>parameter
+                <ul>
+                  <li>acct - user&#39;s accts (ex: cucmberium@mstdn.maud.io)</li>
+                </ul>
+              </li>
+              <li>returns
+                <ul>
+                  <li>Calculates and returns similar users.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </section>
+{% endblock %}

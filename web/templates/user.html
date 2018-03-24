@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+    <section id="about">
+      <div class="container">
+        <h1>
+          おすすめユーザー
+        </h1>
+        <div class="row">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>アカウント</th>
+                <th style="width:105px">おすすめ度</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in recommend_users %}
+              <tr>
+                <td>
+                  <div class="item__header">
+                    <span class="item__user-icon">
+                      <a href="{{ user.url }}"><img src="{{ user.avatar }}" height="48" width="48" alt="{{ user.acct }}" class="item__user-icon-img" /></a>
+                    </span>
+                    <span class="item__user-name">
+                      <strong>{{ user.display_name }}</strong> <a href="{{ user.url }}">@{{ user.acct }}</a>
+                    </span>
+                    <span class="item__bio">
+                      {% autoescape off %}{{ user.bio }}{% endautoescape %}
+                    </span>
+                  </div>
+                </td>
+                <td>{{ user.similarity|floatformat:-3 }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <h1>
+          類似ユーザーリスト
+        </h1>
+        <div class="row">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>アカウント</th>
+                <th style="width:105px">類似度</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in similar_users %}
+              <tr>
+                <td>
+                  <div class="item__header">
+                    <span class="item__user-icon">
+                      <a href="{{ user.url }}"><img src="{{ user.avatar }}" height="48" width="48" alt="{{ user.acct }}" class="item__user-icon-img" /></a>
+                    </span>
+                    <span class="item__user-name">
+                      <strong>{{ user.display_name }}</strong> <a href="{{ user.url }}">@{{ user.acct }}</a>
+                    </span>
+                    <span class="item__bio">
+                      {% autoescape off %}{{ user.bio }}{% endautoescape %}
+                    </span>
+                  </div>
+                </td>
+                <td>{{ user.similarity|floatformat:-3 }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+{% endblock %}
