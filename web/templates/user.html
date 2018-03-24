@@ -6,33 +6,30 @@
           おすすめユーザー
         </h1>
         <div class="row">
-          <table class="table table-striped">
+          <table class="table table-bordered table-striped">
             <thead>
               <tr>
                 <th>アカウント</th>
-                <th>おすすめ度</th>
+                <th style="width:105px">おすすめ度</th>
               </tr>
             </thead>
             <tbody>
               {% for user in recommend_users %}
               <tr>
                 <td>
-                  <div class="item__header clearfix">
+                  <div class="item__header">
                     <span class="item__user-icon">
-                      <img src="{{ user.avatar }}" height="48" width="48" alt="{{ user.acct }}" class="item__user-icon-img" />
+                      <a href="{{ user.url }}"><img src="{{ user.avatar }}" height="48" width="48" alt="{{ user.acct }}" class="item__user-icon-img" /></a>
                     </span>
                     <span class="item__user-name">
-                      <strong>{{ user.display_name }}</strong> @{{ user.acct }}
+                      <strong>{{ user.display_name }}</strong> <a href="{{ user.url }}">@{{ user.acct }}</a>
                     </span>
                     <span class="item__bio">
                       {% autoescape off %}{{ user.bio }}{% endautoescape %}
                     </span>
-                    <span class="item__url">
-                      <a href="{{ user.url }}">{{ user.url }}</a>
-                    </span>
                   </div>
                 </td>
-                <td>{{ user.similarity|floatformat:-4 }}</td>
+                <td>{{ user.similarity|floatformat:-3 }}</td>
               </tr>
               {% endfor %}
             </tbody>
@@ -43,33 +40,30 @@
           類似ユーザーリスト
         </h1>
         <div class="row">
-          <table class="table table-striped">
+          <table class="table table-bordered table-striped">
             <thead>
               <tr>
                 <th>アカウント</th>
-                <th>類似度</th>
+                <th style="width:105px">類似度</th>
               </tr>
             </thead>
             <tbody>
               {% for user in similar_users %}
               <tr>
                 <td>
-                  <div class="item__header clearfix">
+                  <div class="item__header">
                     <span class="item__user-icon">
-                      <img src="{{ user.avatar }}" height="48" width="48" alt="{{ user.acct }}" class="item__user-icon-img" />
+                      <a href="{{ user.url }}"><img src="{{ user.avatar }}" height="48" width="48" alt="{{ user.acct }}" class="item__user-icon-img" /></a>
                     </span>
                     <span class="item__user-name">
-                      <strong>{{ user.display_name }}</strong> @{{ user.acct }}
+                      <strong>{{ user.display_name }}</strong> <a href="{{ user.url }}">@{{ user.acct }}</a>
                     </span>
                     <span class="item__bio">
                       {% autoescape off %}{{ user.bio }}{% endautoescape %}
                     </span>
-                    <span class="item__url">
-                      <a href="{{ user.url }}">{{ user.url }}</a>
-                    </span>
                   </div>
                 </td>
-                <td>{{ user.similarity|floatformat:-4 }}</td>
+                <td>{{ user.similarity|floatformat:-3 }}</td>
               </tr>
               {% endfor %}
             </tbody>
