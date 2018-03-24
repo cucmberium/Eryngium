@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
-import eryngium.settings_local
+import eryngium.settings_secret
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,12 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = eryngium.settings_local.SECRET_KEY
+SECRET_KEY = eryngium.settings_secret.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = eryngium.settings_local.ALLOWED_HOST
+ALLOWED_HOSTS = eryngium.settings_secret.ALLOWED_HOST
 
 
 # Application definition
@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'eryngium.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = eryngium.settings_local.DATABASES
+DATABASES = eryngium.settings_secret.DATABASES
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
@@ -128,7 +128,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-ACCESSTOKEN_SETTING = eryngium.settings_local.ACCESSTOKEN_SETTING
+ACCESSTOKEN_SETTING = eryngium.settings_secret.ACCESSTOKEN_SETTING
 
 STATIC_URL = '/static/'
 

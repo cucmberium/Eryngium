@@ -104,6 +104,6 @@ ENV/
 .DS_store
 crawler/migrations/0*.py
 vector/dict/mecab*
-settings_local.py
+settings_secret.py
 *_vector.bin
 loop.sh
