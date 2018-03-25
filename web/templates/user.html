@@ -2,9 +2,14 @@
 {% block content %}
     <section id="about">
       <div class="container">
-        <h1>
-          おすすめユーザー
-        </h1>
+        <h3>
+          {{ target_user_accts }} さんのおすすめユーザー
+        </h3>
+        <p><a href="{{ share_url }}">この結果をシェアする</a></p>
+        <br>
+        <h2>
+          おすすめユーザー一覧
+        </h2>
         <div class="row">
           <table class="table table-bordered table-striped">
             <thead>
@@ -36,9 +41,9 @@
           </table>
         </div>
 
-        <h1>
-          類似ユーザーリスト
-        </h1>
+        <h2>
+          類似ユーザー一覧
+        </h2>
         <div class="row">
           <table class="table table-bordered table-striped">
             <thead>
