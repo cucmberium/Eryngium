@@ -24,13 +24,14 @@ def user(request, target_user_acct):
         target_user = get_user_information(instance, user_name, False)
         target_user_following = set(json.loads(target_user.following))
 
-        similar_users = [x for x in get_similar_following_users(target_user) if x[0] != target_user_acct]
+        similar_users = [x for x in get_similar_following_users(target_user)
+                         if x[0].lower() != target_user_acct.lower()]
         recommend_user_dict = defaultdict(float)
         for acct, sim in similar_users:
             user_name, instance = acct.split("@")
             u = get_user_information(instance, user_name, False)
             for recommend_acct in json.loads(u.following):
-                if recommend_acct == target_user_acct:
+                if recommend_acct.lower() == target_user_acct.lower():
                     continue
                 if recommend_acct in target_user_following:
                     continue
